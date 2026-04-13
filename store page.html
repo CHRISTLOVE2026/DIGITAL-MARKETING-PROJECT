@@ -34,18 +34,6 @@ nav a {
     text-decoration: none;
 }
 
-#catalogProfileSct {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-#productSection {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .product {
     margin: 20px;
     width: 200px;
@@ -57,6 +45,9 @@ nav a {
 }
 
 .editBtn {
+  position: relative;
+  top: -50px;
+  left: 100px;
   display: none;
 }
 .product:hover .editBtn {
@@ -69,6 +60,24 @@ nav a {
     object-fit: cover;
     border-radius: 10px;
 }
+
+
+/*..........*/
+
+
+#catalogProfileSct {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#productSection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
 
 #cartSection {
     display: none;
@@ -131,6 +140,20 @@ nav a {
     left: 300px;
 }
 
+.memeDiv {
+    position: relative;
+    border-radius: 20%;
+    padding-left: 10px;
+    top: -30px;
+    left: 50px;
+    background-color: transparent;
+}
+
+.meme {
+    font-size: 10px;
+    color: coral;
+}
+
 
 </style>
   <body>
@@ -148,6 +171,10 @@ nav a {
 
         <div class="btnDivClass" id="btnDivId">
             <button class="btnClass" onclick="goBackBtnFunc();">GO Back</button>
+        </div>
+
+        <div id="editDescriptionPanel">
+            <!-- this is where our description panel is formed-->
         </div>
 
         <section id="catalogProfileSct" style="background-color: green;">
@@ -187,15 +214,17 @@ nav a {
 </body>
     <script>
   
-  let theIds = ["tel1","catalogProfileSct","productSection","viewProductSection","cartSection","AlertSection","checkoutBtn","btnDivId","cartTeller"];
+  let theIds = ["tel1","editDescriptionPanel","catalogProfileSct","productSection","viewProductSection","cartSection","AlertSection","checkoutBtn","btnDivId","cartTeller"];
     
   theIds.forEach((item) => {
     item = document.getElementById(item);
   });
-  
+
+  const PhotoFolder = "Photos";
+
   Array.prototype.HowManyIndItemInArr = function(product){
     
-  let count = 0;
+    let count = 0;
     this.forEach((item) => {
       if(item === product){
         count ++
@@ -206,108 +235,82 @@ nav a {
   }
 
  let totalGlobal = 0;
-
- let catalogList = [
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-    { id: 1, dataId: "c1", name: "Product 1", price: 100, image: "product1.jpg" },
-    { id: 2, dataId: "c2", name: "Product 2", price: 200, image: "product2.jpg" },
-    { id: 3, dataId: "c3", name: "Product 3", price: 300, image: "product3.jpg" },
-];
-
- let childProductsList = [
-    { id: 1, parentId: "c1", name: "Product 4", price: 100, image: "product4.jpg" },
-    { id: 2, parentId: "c1", name: "Product 5", price: 200, image: "product5.jpg" },
-    { id: 3, parentId: "c1", name: "Product 6", price: 300, image: "product6.jpg" },
-    { id: 3, parentId: "c2", name: "Product 7", price: 800, image: "product7.jpg" },
-    { id: 3, parentId: "c2", name: "Product 8", price: 700, image: "product8.jpg" },
-    { id: 3, parentId: "c2", name: "Product 9", price: 400, image: "product9.jpg" },
-    { id: 3, parentId: "c3", name: "Product 10", price: 1000, image: "product10.jpg" },
-    { id: 3, parentId: "c3", name: "Product 11", price: 250, image: "product11.jpg" },
-
-];
-
  let cartArr = [];
  let productInCartArr = [];
- 
- // create the element to be visible
-catalogList.forEach((item) => {
-    let Photos = "Photos";
 
+
+ let catalogList = [
+    { name: "catalog 1", catalogId: "c1", image: "product1.jpg" },
+    { name: "catalog 2", catalogId: "c2", image: "product4.jpg" },
+    { name: "catalog 3", catalogId: "c3", image: "product7.jpg" },
+ ];
+
+
+/* donot be confused/distracted by the name as it can change and donot affect anything
+   the item.name helps us to grag the product individually/singularly through the add-chart btn,
+   NB: the number should be increasing accordingly 
+*/
+ let catalogChildList = [
+    { belongTo: "c1", idNo: 1, name: "product 1", price: 100, image: "product1.jpg" },
+    { belongTo: "c1", idNo: 2, name: "product 2", price: 150, image: "product2.jpg" },
+    { belongTo: "c1", idNo: 3, name: "product 3", price: 180, image: "product3.jpg" },
+
+    { belongTo: "c2", idNo: 4, name: "product 4", price: 200, image: "product4.jpg" },
+    { belongTo: "c2", idNo: 5, name: "product 5", price: 250, image: "product5.jpg" },
+    { belongTo: "c2", idNo: 6, name: "product 6", price: 280, image: "product6.jpg" },
+
+    { belongTo: "c3", idNo: 7, name: "product 7", price: 300, image: "product7.jpg" },
+    { belongTo: "c3", idNo: 8, name: "product 8", price: 350, image: "product8.jpg" },
+    { belongTo: "c3", idNo: 9, name: "product 9", price: 380, image: "product9.jpg" },
+ ];
+
+ setDefaultFunc();
+
+// this display all the catalog product on the webpage
+catalogList.forEach((item) => {
+    
     catalogProfileSct.innerHTML += `
-        <div class="product">
-            <img src="./${Photos}/${item.image}" alt="${item.name}" class="catalog-profile-pic" data-id="${item.dataId}" />
+      <div class="product">
+            <img src="./${PhotoFolder}/${item.image}" alt="${item.name}" class="catalog" data-id="${item.catalogId}" />
             <h3>${item.name}</h3>
-            <p>click to view catalog</p>
-        </div>
-        `;
+            <p style="color: blue;">click to view catalog</p>
+      </div>
+    `
 });
 
 
- document.addEventListener("click", (e) => {
-    
-     let Photos = "Photos";
+document.addEventListener("click", (e) => {
 
-     if (e.target.classList.contains("catalog-profile-pic")) {
-        const productId = e.target.dataset.id;
-        const product = catalogList.find((p) => p.dataId == productId);
-        // tel1.innerHTML = product.name;
+    if(e.target.classList.contains("catalog")){
+        
+        const thisCatalogId = e.target.dataset.id;
+        const catalogProduct = catalogList.find((p) => p.catalogId === thisCatalogId);
 
         catalogProfileSct.style.display = "none";
         productSection.style.display = "flex";
 
+        
+        // catalog profile
         productSection.innerHTML = `
              productSection
             <div class="product" style=" width: 60; height: 70px;">
-                <img src="./${Photos}/${product.image}" alt="${product.name}" class="catalog-list" >
-                <h3>${product.name}</h3>
+                <img src="./${PhotoFolder}/${catalogProduct.image}" alt="${catalogProduct.name}" class="catalog-list" >
+                <h3>${catalogProduct.name}</h3>
             </div> 
             `;
+
+        
+        // create the child elements/catalog-list
+        catalogChildList.forEach((item) => {
             
-        // create the element to be visible
-        childProductsList.forEach((item) => {
-            
-            if(item.parentId === productId){
+            if(item.belongTo === thisCatalogId){
                 productSection.innerHTML += `
                         <div class="product">
-                            <img src="./${Photos}/${item.image}" alt="${item.name}" class="catalog-list" >
+                            <img src="./${PhotoFolder}/${item.image}" alt="${item.name}" class="catalog-list" >
                             <h3>${item.name}</h3>
                             <p>₦${item.price}</p>
-                            <button class="add-to-cart" data-id=${item.id}>Add to Cart</button>
-                            <button class="editBtn">Edit</button>
+                            <button class="add-to-cart" data-id=${item.idNo}>Add to Cart</button>
+                            <button class="editBtn" data-id=${item.idNo}>Edit</button>
                         </div>
                         `;
             }else{
@@ -315,28 +318,45 @@ catalogList.forEach((item) => {
             }
             
         });
-        
-     }else if (e.target.classList.contains("add-to-cart")) {
-        
-        const productId = e.target.dataset.id;
-        const product = childProductsList.find((p) => p.id == productId);
+             
+    }else if (e.target.classList.contains("add-to-cart")) {
+
+        // the idNo helps us to search out the product individually
+        const thisProductBtnId = e.target.dataset.id;
+        const catalogProduct = catalogChildList.find((p) => p.idNo == thisProductBtnId);
 
         AlertSection.style.display = "none";
         cartSection.style.display = "block";
-  
-  
-        cartArr.push(product);
-        productInCartArr.push(product.name);
+        editDescriptionPanel.innerHTML = "";
+
+        cartArr.push(catalogProduct);
+        productInCartArr.push(catalogProduct.name);
         cartTeller.innerHTML = `Cart  (${cartArr.length})`;
         updateCart();
-        
+
+        /*
+        // this set our memes back to Default
+        if(catalogProduct.editModeIsOn){
+          setTimeout(() => {
+            catalogProduct.objWidth = "Default";
+            catalogProduct.objHeight = "Default";
+            catalogProduct.objQuantity = 1;
+            catalogProduct.price = catalogProduct.defaultPrice;
+            catalogProduct.editModeIsOn = false;
+          }, 2000);
+        }
+*/
+
     }else if (e.target.classList.contains("remove-from-cart")) {
-        const productId = e.target.dataset.id;
-        //const product = cart.find((p) => p.id == productId);
-       // tel1.innerHTML = productId;
+        const thisProductBtnId = e.target.dataset.id;
+        //const catalogProduct = catalogChildList.find((p) => p.idNo == thisProductBtnId);
+
+       // tel1.innerHTML = thisProductBtnId;
   
-        cartArr.splice(productId,1);
-        productInCartArr.splice(productId,1);
+        cartArr.splice(thisProductBtnId,1);
+        productInCartArr.splice(thisProductBtnId,1);
+
+        editDescriptionPanel.innerHTML = "";
 
         cartTeller.innerHTML = `Cart  (${cartArr.length})`;
         
@@ -363,6 +383,7 @@ catalogList.forEach((item) => {
       });
     
       AlertTeller.innerHTML += `<br><br><br> <b>total :  ₦${totalGlobal}</b>`;
+
   
     }else if (e.target.classList.contains("confirmed-btn")) {
      
@@ -374,11 +395,53 @@ catalogList.forEach((item) => {
       btnDivId.style.display = "none";
       tel1.style.display = "none";
     
-    // display new page
+      // display new page
       document.getElementById("paymentSection").style.display = "block";
-      window.location.href = 'GOOGLE FORM.html';
-   } 
+      //window.location.href = 'Home.html';
+   }else if (e.target.classList.contains("editBtn")) {
 
+        // the idNo helps us to search out the product individually
+        const thisProductBtnId = e.target.dataset.id;
+        const catalogProduct = catalogChildList.find((p) => p.idNo == thisProductBtnId);
+
+        //editDiscriptionPanel.style.display = "block";
+
+        editDescriptionPanel.innerHTML = `       
+            <div class="form-edit-container">
+                    <h4>Discribe what you want</h4>
+                    <input type="number" id="objWidth" value="" placeholder="obj width in feet">
+                    <input type="number" id="objHeight" value="" placeholder="obj height in feet">
+                    <input type="number" id="objQuantity" value="" placeholder="obj quantity">
+                
+                    <button class="saveEditBtn" data-id=${thisProductBtnId}>Save</button>
+            </div>     
+        `
+        
+   }else if (e.target.classList.contains("saveEditBtn")) {
+
+        // the idNo helps us to search out the product individually
+        const thisProductBtnId = e.target.dataset.id;
+        const catalogProduct = catalogChildList.find((p) => p.idNo == thisProductBtnId);
+
+        const objWidth = document.getElementById("objWidth").value;
+        const objHeight = document.getElementById("objHeight").value;
+        const objQuantity = document.getElementById("objQuantity").value;
+
+        catalogProduct.objWidth = objWidth;
+        catalogProduct.objHeight = objHeight;
+        catalogProduct.objQuantity = objQuantity;
+        catalogProduct.defaultPrice = catalogProduct.price;
+        catalogProduct.editModeIsOn = true;
+        
+        catalogProduct.price *= catalogProduct.objQuantity; //the price formula goes in here
+        
+        editDescriptionPanel.innerHTML = "";
+        AlertSection.style.display = "none";
+        cartSection.style.display = "none";
+
+    } 
+
+     
      // ........................
      // this helps us get a better view of the catalog
      if (e.target.classList.contains("catalog-list")) {
@@ -390,7 +453,9 @@ catalogList.forEach((item) => {
      }
 
      //.......................
+
 });
+
 
 // Update cart
 function updateCart() {
@@ -398,13 +463,21 @@ function updateCart() {
   cartSection.style.display = "block";
   viewProductSection.style.display = "none";
   
+    let total = 0;
     const cartItems = document.getElementById('cart-items');
     cartItems.innerHTML = '';
-    let total = 0;
+    
     cartArr.forEach((item,index) => {
         cartItems.innerHTML += `
          <div class="product">
-            <p>${item.name} - ₦${item.price}</p> 
+            <p>${item.name} - ₦${item.price}</p><br> 
+
+            <div class="memeDiv">
+               <p class="meme"> objWidth: ${item.objWidth} </p> 
+               <p class="meme"> objHeight: ${item.objHeight} </p> 
+               <p class="meme"> objQuantity: ${item.objQuantity} </p>
+            </div>
+
             <button class="remove-from-cart" data-id=${index}>Delete</button>
          </div>
         `;
@@ -465,12 +538,20 @@ function countDuplicates(arr) {
 
     return duplicateCount;
 }
+function setDefaultFunc(){
+    for(let key in catalogChildList){
+        catalogChildList[key].objWidth = "Default";       
+        catalogChildList[key].objHeight = "Dafault";
+        catalogChildList[key].objQuantity = 1;
+        catalogChildList[key].defaultPrice = 1;
+        catalogChildList[key].editModeIsOn = false;
+    }     
+}
 
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault();
   e.returnValue = 'Are you sure you want to leave ?';
 });
- 
 
 </script>
 </head>

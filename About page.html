@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .about-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            line-height: 1.6;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .read-more {
+            color: #4CAF50;
+            cursor: pointer;
+        }
+
+
+.about-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+#bio {
+    padding: 10px;
+    border: 1px dashed #ccc;
+    min-height: 200px;
+}
+
+#save-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit {
+  position: relative;
+  top: -200px;
+  left: 50px;
+}
+#indicator {
+  position: relative;
+  top: -150px;
+  left: 50px;
+  display: none;
+}
+
+</style>
+<body>
+    <div class="about-container">
+        <h1>About the Company</h1>
+        <h1>Wilson Interior</h1>
+        <img src="./logo.png" alt="Elijah Omotayo" class="profile-image">
+        
+        <div id="bio" contenteditable="true">
+            <!-- biography will be loaded here -->
+        </div>
+        <button id="save-btn">Save Changes</button>
+    </div>
+    
+    <div class="container">
+        <form method="post" action="" name="contact-form">
+          
+            <textarea name="About-company" rows="7" placeholder="About company"  id="myTextArea" style="opacity: 0;" ></textarea>
+            
+            <input type="submit" value="Submit" id="submit" >
+        </form>
+    </div>
+    <span id="indicator">Loading......please wait</span>
+     
+    <script>
+      
+const bioDiv = document.getElementById('bio');
+const saveBtn = document.getElementById('save-btn');
+const indicator = document.getElementById('indicator');
+
+const biography = `
+        <p>Elijah Omotayo is a visionary entrepreneur and founder of Omotayo Ventures, a leading e-commerce platform in Nigeria.</p>
+        <p>Born and raised in Ibadan, Elijah developed a passion for technology and innovation at a young age. He pursued a degree in Computer Science from the University of Ibadan, where he graduated with honors.</p>
+        
+        <p id="more-text" style="display: none;">After working with top tech firms in Nigeria and abroad, Elijah founded Omotayo Ventures in 2015 with a mission to revolutionize the way Nigerians shop online.<br>Under Elijah's leadership, Omotayo Ventures has grown to become a trusted partner for businesses seeking to expand their online presence. Elijah is known for his strategic thinking, leadership skills, and commitment to empowering young entrepreneurs.<br>Elijah has been recognized for his contributions to the Nigerian tech ecosystem, including being named one of the Top 10 Young Entrepreneurs in Nigeria by the Nigerian Youth Organization.</p>
+        
+        <span class="read-more" onclick="toggleText()">Read more</span>
+        <p>In his free time, Elijah enjoys reading, playing football, and speaking at tech conferences.</p>
+        <br>
+`;
+
+
+function toggleText() {
+   const moreText = document.getElementById("more-text");
+   const readMore = document.querySelector(".read-more");
+  
+   if (moreText.style.display === "none") {
+      moreText.style.display = "block";
+                readMore.textContent = "Read less";
+   } else {
+      moreText.style.display = "none";
+                readMore.textContent = "Read more";
+   }
+  
+}
+
+
+//localStorage.clear();
+
+
+// Load saved biography from localStorage (if any)
+if (localStorage.getItem('bio')) {
+    bioDiv.innerHTML = localStorage.getItem('bio');
+    document.getElementById("myTextArea").value = localStorage.getItem('bio');
+} else {
+    bioDiv.innerHTML = biography;
+    document.getElementById("myTextArea").value = localStorage.getItem('bio');
+}
+
+// Save biography on button click
+saveBtn.addEventListener('click', () => {
+    const bioContent = bioDiv.innerHTML;
+    localStorage.setItem('bio', bioContent);
+    alert('Biography saved!');
+});
+
+
+// POST AREA
+const scriptURL = "https://script.google.com/macros/s/AKfycbx521dP3p_SF1UV4SX1ICl66WfEoolbSTg7iSzkBjNDSNBcoDYyJ5T6uyFz2TCV0InsVA/exec";
+
+const form = document.forms['contact-form']
+  form.addEventListener('submit', e => {
+
+    document.getElementById('submit').style.display = "none";
+    indicator.style.display = "block";
+    
+    e.preventDefault()
+            
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    //.then(Response => alert("thank you! your form is submitted successfully."))
+    .then(() => {
+      //window.location.href = 'Biography.html';
+     window.location.href = 'testing.html';
+    })
+    .catch(error => console.error('Error!', error.message))
+  });
+        
+
+    </script>
+</body>
+</html>

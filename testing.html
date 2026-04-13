@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+</head>
+<style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .about-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            line-height: 1.6;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: block;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        .read-more {
+            color: #4CAF50;
+            cursor: pointer;
+        }
+
+
+.about-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: aquamarine/* #f9f9f9 */;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    line-height: 1.6;
+}
+
+#bio {
+    padding: 10px;
+    border: 1px dashed #ccc;
+    min-height: 200px;
+}
+
+#save-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#submit {
+  position: relative;
+  top: -200px;
+  left: 50px;
+}
+#indicator {
+  position: relative;
+  top: -150px;
+  left: 50px;
+  display: none;
+}
+
+</style>
+<body>
+    <div class="about-container">
+        <h1>Biography</h1>
+        <h1>Mr Wilson</h1>
+        
+        <div id="bio" contenteditable="true">
+            <!-- biography will be loaded here -->
+        </div>
+        <button id="save-btn">Save Changes</button>
+    </div>
+    
+    <div class="container">
+        <form method="post" action="" name="contact-form">
+          
+            <textarea name="biography" rows="7" placeholder="your biography"  id="myTextArea" style="opacity: 0;" ></textarea>
+            
+            <input type="submit" value="Submit" id="submit" >
+        </form>
+    </div>
+    <span id="indicator">Loading......please wait</span>
+     
+    <script>
+      
+const bioDiv = document.getElementById('bio');
+const saveBtn = document.getElementById('save-btn');
+const indicator = document.getElementById('indicator');
+
+const biography = `
+        <p>John Doe is a highly accomplished entrepreneur and visionary leader with over 15 years of experience in driving innovation and growth in the tech industry.</p>
+            <p>Born and raised in Lagos, Nigeria, John developed a passion for technology at a young age and pursued a degree in Computer Science from the University of Lagos.</p>
+            <p>After working with top tech firms in Nigeria and abroad, John founded his own company, DoeTech, which has become a leading player in the African tech ecosystem.</p>
+            <p>John is known for his strategic thinking, leadership skills, and commitment to empowering young entrepreneurs across Africa.</p>
+            <p>In his free time, John enjoys reading, traveling, and speaking at tech conferences.</p>
+
+        <br>
+`;
+
+
+function toggleText() {
+   const moreText = document.getElementById("more-text");
+   const readMore = document.querySelector(".read-more");
+  
+   if (moreText.style.display === "none") {
+      moreText.style.display = "block";
+                readMore.textContent = "Read less";
+   } else {
+      moreText.style.display = "none";
+                readMore.textContent = "Read more";
+   }
+  
+}
+
+
+// localStorage.clear();
+
+
+// Load saved biography from localStorage (if any)
+if (localStorage.getItem('bio')) {
+    bioDiv.innerHTML = localStorage.getItem('bio');
+    document.getElementById("myTextArea").value = localStorage.getItem('bio');
+} else {
+    bioDiv.innerHTML = biography;
+    document.getElementById("myTextArea").value = localStorage.getItem('bio');
+}
+
+// Save biography on button click
+saveBtn.addEventListener('click', () => {
+    const bioContent = bioDiv.innerHTML;
+    localStorage.setItem('bio', bioContent);
+    alert('Biography saved!');
+});
+
+
+// POST AREA
+const scriptURL = "https://script.google.com/macros/s/AKfycbx521dP3p_SF1UV4SX1ICl66WfEoolbSTg7iSzkBjNDSNBcoDYyJ5T6uyFz2TCV0InsVA/exec";
+
+const form = document.forms['contact-form']
+  form.addEventListener('submit', e => {
+
+    document.getElementById('submit').style.display = "none";
+    indicator.style.display = "block";
+    
+    e.preventDefault()
+            
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    //.then(Response => alert("thank you! your form is submitted successfully."))
+    .then(() => {
+      // window.location.href = 'Biography.html';
+      window.location.href = 'store page.html';
+    })
+    .catch(error => console.error('Error!', error.message))
+  });
+        
+
+    </script>
+</body>
+</html>

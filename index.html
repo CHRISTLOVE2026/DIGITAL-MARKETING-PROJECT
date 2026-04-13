@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+</head>
+<style>
+
+ body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.name-cycle {
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    padding: 20px;
+    animation: cycleGlow 4s infinite;
+}
+
+#owner-name {
+    font-size: 48px;
+    animation: fadeInOut 4s 2;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes cycleGlow {
+    0% {
+        border-color: #ccc;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+    50% {
+        border-color: #4CAF50;
+        box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+    }
+    100% {
+        border-color: #ccc;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+
+/* Background particles */
+.particle {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    animation: float 10s infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Update #owner-name to #logo */
+#logo {
+    width: 250px; /* adjust size */
+    opacity: -0.05;
+    border-radius: 60%;
+    height: auto;
+}
+/* Other styles remain the same */
+
+ 
+</style>
+<body>
+  
+    <div class="background">
+        <!-- particles will be added here -->
+    </div>
+    
+    <h3 id="tel1"></h3>
+    
+    <div class="welcome-container">
+        <div class="name-cycle">
+            <h1 id="owner-name">online marketing</h1>
+            <!--img id="logo" src="logo.png" alt="Logo"-->
+        </div>
+    </div>
+    <script>
+      
+      const ownerName = document.getElementById("owner-name");
+      const tel1 = document.getElementById("tel1");
+      
+      
+        // Add particles
+        const background = document.querySelector('.background');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 2}s`;
+            background.appendChild(particle);
+        }
+
+                // Create particles
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = `${Math.random() * 10 + 5}px`;
+            particle.style.height = particle.style.width;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            document.body.appendChild(particle);
+        }
+   
+   //......................     
+           
+        setTimeout(() => {
+           ownerName.innerHTML = `<img id="logo" src="./logo.png" alt="Logo" > `;
+        }, 7000);
+      
+        
+        let count = -0.05;
+        let countLim = 1.2;
+        
+        setTimeout(() => {
+          setInterval(() => {
+            count += 0.05;
+             document.getElementById("logo").style.opacity = count;
+             //tel1.innerHTML = count;
+             if(count >= countLim) window.location.href = 'About page.html';
+          },400);
+          
+        }, 7300);
+        
+        
+    </script>
+</body>
+</html>
+

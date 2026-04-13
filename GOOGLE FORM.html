@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>google form</title>
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        font-family: 'poppins', sans-serif;
+        font-size: 18px;
+    }
+
+    body {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container {
+        width: 500px;
+        padding: 30px;
+        border: 1px solid #eeeeee;
+        border-radius: 10px;
+        background-color: #003b5b;
+    }
+    h4 {
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: white;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    textarea {
+        width: 100%;
+        padding: 10px;
+    }
+    #submit {
+        border: none;
+        background-color: orangered;
+        color: white;
+        width: 200px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+    #submit:hover {
+        background-color: #333333;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <form method="post" action="" name="contact-form">
+            <h4>Contact  Us</h4>
+            <input type="text" name="your-name" placeholder="Name">
+            <input type="text" name="number" placeholder="Number">
+            <input type="email" name="email" placeholder="Email">
+            <input type="text" name="church" placeholder="church">
+
+            <textarea name="message" rows="7" placeholder="Your Message"></textarea>
+            
+            <input type="submit" value="Submit" id="submit" >
+            <span id="indicator" style="color: beige;"></span>
+        </form>
+    </div>
+</body>
+<script>
+
+        const submit = document.getElementById("submit");
+        const indicator = document.getElementById("indicator");
+    
+        const scriptURL = "https://script.google.com/macros/s/AKfycbx521dP3p_SF1UV4SX1ICl66WfEoolbSTg7iSzkBjNDSNBcoDYyJ5T6uyFz2TCV0InsVA/exec";
+       // const scriptURL = "https://script.google.com/macros/s/AKfycbxicNGaISrALZ4WVtDy-ocw-W7c8GTpDsZUhsspXbQYQvl-Ek7i-UtpQQy70QT3AhMyqA/exec";
+
+
+        const form = document.forms['contact-form']
+
+        form.addEventListener('submit', e => {
+            submit.style.display = "none";
+            indicator.innerHTML = "loading ...... please wait.";
+
+            e.preventDefault()
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(Response => alert("thank you! your form is submitted successfully."))
+            .then(() => {window.location.reload(); })
+            .catch(error => console.error('Error!', error.message))
+        })
+
+</script>
+</html>

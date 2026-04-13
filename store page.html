@@ -466,7 +466,10 @@ function countDuplicates(arr) {
     return duplicateCount;
 }
 
-
+window.addEventListener('beforeunload', (e) => {
+  e.preventDefault();
+  e.returnValue = 'Are you sure you want to leave ?';
+});
  
 
 </script>
